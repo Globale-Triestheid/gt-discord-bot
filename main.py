@@ -17,7 +17,7 @@ async def wth(ctx, user: discord.Member = None):
     if not user:
         user = ctx.author
 
-    print(user.nick)
+    print(user)
 
     wanted_image = Image.open("wth.jpg")
 
