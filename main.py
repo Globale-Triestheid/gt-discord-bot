@@ -9,8 +9,6 @@ from PIL import Image
 from io import BytesIO
 
 client = commands.Bot(command_prefix="!")
-# hoi
-
 
 @client.command()
 async def wth(ctx, user: discord.Member = None):
