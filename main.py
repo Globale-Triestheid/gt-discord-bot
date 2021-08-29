@@ -72,4 +72,27 @@ async def deepfry(ctx, user: discord.Member = None):
     Fryer().deepFry(image_url=path)
     await ctx.send(file=discord.File("deep_img.png"))
 
+@client.command()
+async def keemstar(ctx, user: discord.Member = None):
+    if not user:
+        user = ctx.author
+
+    print(user)
+
+    keemstar_image = Image.open("keemstar.jpg")
+
+    asset = user.avatar_url_as(size=512)
+
+    data = BytesIO(await asset.read())
+    pfp = Image.open(data)
+    keemstar_image = keemstar_image.resize((128, 128))
+    keemstar_image = keemstar_image.convert("RGB")
+    pfp.paste(keemstar_image, (0, 0))
+
+    pfp.save("profile_keemstar.jpg")
+
+    await ctx.send(file=discord.File("profile_keemstar.jpg"))
+
+
+
 client.run(os.getenv("TOKEN"))
