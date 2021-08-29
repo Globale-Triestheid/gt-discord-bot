@@ -148,6 +148,33 @@ async def wasted(ctx, user: discord.Member = None):
 
     await ctx.send(file=discord.File("profile_wasted.jpg"))
 
+@client.command()
+async def whodidthis(ctx, user: discord.Member = None):
+    """
+    returns an image with the who did this? meme
+    ctx: original message
+    user: (optional taggerd user
+    """
+
+    if not user:
+        user = ctx.author
+
+    print(user)
+
+    whodidthis_image = Image.open("images/whodidthis.jpg")
+
+    asset = user.avatar_url_as(size=512)
+    data = BytesIO(await asset.read())
+    pfp = Image.open(data)
+
+    pfp = pfp.resize((662, 662))
+
+    whodidthis_image.paste(pfp, (103, 134))
+
+    pfp.save("profile_whodidthis.jpg")
+
+    await ctx.send(file=discord.File("profile_whodidthis.jpg"))
+
 
 client.run(os.getenv("TOKEN"))
 
