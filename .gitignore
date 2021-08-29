@@ -138,3 +138,4 @@ profile_wth.jpg
 
 # pycharm
 .idea/
+*.py~

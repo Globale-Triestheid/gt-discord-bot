@@ -13,6 +13,13 @@ client = commands.Bot(command_prefix="!")
 
 @client.command()
 async def wth(ctx, user: discord.Member = None):
+    """
+    Returns the "worse than Hitler" image with somebodies profile picture inside.
+    ctx: original message
+    user: (optional) tagged user
+    """
+
+    # if no user parameter is specified, the OP gets used as user.
     if not user:
         user = ctx.author
 
@@ -26,6 +33,7 @@ async def wth(ctx, user: discord.Member = None):
     pfp = Image.open(data)
     pfp = pfp.resize((130, 130))
 
+    # pastes users pfp inside the wth image
     wth_image.paste(pfp, (41, 41))
     wth_image = wth_image.convert("RGB")
     wth_image.save("images/profile_wth.jpg")
@@ -35,6 +43,12 @@ async def wth(ctx, user: discord.Member = None):
 
 @client.command()
 async def deepfry(ctx, user: discord.Member = None):
+    """
+    Returns a deepfried image of a profile picture or a referenced image.
+    ctx: original message
+    user: (optional) tagged user
+    """
+
     print(ctx.message.reference)
     await ctx.message.add_reaction(u"\U0001F595")
 
@@ -74,6 +88,12 @@ async def deepfry(ctx, user: discord.Member = None):
 
 @client.command()
 async def keemstar(ctx, user: discord.Member = None):
+    """
+    Returns an image with keemstar in the top left.
+    ctx: original message
+    user: (optional) tagged user
+    """
+
     if not user:
         user = ctx.author
 
@@ -93,7 +113,6 @@ async def keemstar(ctx, user: discord.Member = None):
     pfp.save("images/profile_keemstar.jpg")
 
     await ctx.send(file=discord.File("images/profile_keemstar.jpg"))
-
 
 
 client.run(os.getenv("TOKEN"))
