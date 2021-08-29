@@ -1,8 +1,5 @@
 import discord
 from discord.ext import commands
-# import datetime
-# import asyncio
-# import random
 import os
 import requests
 from webscraper import Fryer
@@ -13,6 +10,7 @@ from io import BytesIO
 
 client = commands.Bot(command_prefix="!")
 
+
 @client.command()
 async def wth(ctx, user: discord.Member = None):
     if not user:
@@ -20,7 +18,7 @@ async def wth(ctx, user: discord.Member = None):
 
     print(user)
 
-    wanted_image = Image.open("wth.jpg")
+    wth_image = Image.open("images/wth.jpg")
 
     asset = user.avatar_url_as(size=128)
 
@@ -28,11 +26,12 @@ async def wth(ctx, user: discord.Member = None):
     pfp = Image.open(data)
     pfp = pfp.resize((130, 130))
 
-    wanted_image.paste(pfp, (41, 41))
-    wanted_image = wanted_image.convert("RGB")
-    wanted_image.save("profile.jpg")
+    wth_image.paste(pfp, (41, 41))
+    wth_image = wth_image.convert("RGB")
+    wth_image.save("images/profile_wth.jpg")
 
-    await ctx.send(file=discord.File("profile.jpg"))
+    await ctx.send(file=discord.File("images/profile_wth.jpg"))
+
 
 @client.command()
 async def deepfry(ctx, user: discord.Member = None):
@@ -66,11 +65,12 @@ async def deepfry(ctx, user: discord.Member = None):
         img = Image.open(data)
 
     img = img.convert("RGB")
-    img.save("deepfry.jpg")
-    path = os.path.dirname(os.path.realpath('deepfry.jpg')) + "\deepfry.jpg"
+    img.save("images/deepfry.jpg")
+    path = os.path.dirname(os.path.realpath('images/deepfry.jpg')) + "\deepfry.jpg"
     print(path)
     Fryer().deepFry(image_url=path)
-    await ctx.send(file=discord.File("deep_img.png"))
+    await ctx.send(file=discord.File("images/deep_img.png"))
+
 
 @client.command()
 async def keemstar(ctx, user: discord.Member = None):
@@ -79,7 +79,7 @@ async def keemstar(ctx, user: discord.Member = None):
 
     print(user)
 
-    keemstar_image = Image.open("keemstar.jpg")
+    keemstar_image = Image.open("images/keemstar.jpg")
 
     asset = user.avatar_url_as(size=512)
 
@@ -87,11 +87,12 @@ async def keemstar(ctx, user: discord.Member = None):
     pfp = Image.open(data)
     keemstar_image = keemstar_image.resize((128, 128))
     keemstar_image = keemstar_image.convert("RGB")
+    pfp = pfp.resize((512, 512))
+    pfp = pfp.convert("RGB")
     pfp.paste(keemstar_image, (0, 0))
+    pfp.save("images/profile_keemstar.jpg")
 
-    pfp.save("profile_keemstar.jpg")
-
-    await ctx.send(file=discord.File("profile_keemstar.jpg"))
+    await ctx.send(file=discord.File("images/profile_keemstar.jpg"))
 
 
 

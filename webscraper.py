@@ -19,7 +19,7 @@ class Fryer:
         location = canvas.location
         size = canvas.size
 
-        self.driver.save_screenshot("shot.png")
+        self.driver.save_screenshot("images/shot.png")
 
         x = location['x']
         y = location['y']
@@ -28,8 +28,8 @@ class Fryer:
         width = x + w
         height = y + h
 
-        im = Image.open('shot.png')
+        im = Image.open('images/shot.png')
         im = im.crop((int(x), int(y), int(width), int(height)))
-        im.save('deep_img.png')
+        im.save('images/deep_img.png')
 
         self.driver.close()
