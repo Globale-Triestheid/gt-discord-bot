@@ -5,7 +5,7 @@ import requests
 from webscraper import Fryer
 from time import sleep
 
-from PIL import Image
+from PIL import Image, ImageEnhance
 from io import BytesIO
 
 client = commands.Bot(command_prefix="!")
@@ -115,4 +115,39 @@ async def keemstar(ctx, user: discord.Member = None):
     await ctx.send(file=discord.File("images/profile_keemstar.jpg"))
 
 
+@client.command()
+async def wasted(ctx, user: discord.Member = None):
+    """
+    Returns a profile picture with the GTA "wasted"
+    ctx: original message
+    user: (optional) tagged user
+    """
+  
+    if not user:
+        user = ctx.author
+
+    print(user)
+
+    wasted_image = Image.open("wasted.jpg")
+
+    asset = user.avatar_url_as(size=512)
+    data = BytesIO(await asset.read())
+    pfp = Image.open(data)
+
+    enhancer = ImageEnhance.Brightness(pfp)
+
+    factor = 0.5  # darkens the image
+    pfp = enhancer.enhance(factor)
+
+    wasted_image = Image.open("wasted.jpg")
+
+    pfp.paste(wasted_image, (0, 200))
+
+
+    pfp.save("profile_wasted.jpg")
+
+    await ctx.send(file=discord.File("profile_wasted.jpg"))
+
+
 client.run(os.getenv("TOKEN"))
+
