@@ -51,9 +51,9 @@ async def keemstar(ctx, user: discord.Member = None):
     keemstar_image = keemstar_image.convert("RGB")
     pfp.paste(keemstar_image, (0, 0))
 
-    pfp.save("profile.jpg")
+    pfp.save("profile_keemstar.jpg")
 
-    await ctx.send(file=discord.File("profile.jpg"))
+    await ctx.send(file=discord.File("profile_keemstar.jpg"))
 
 
 
