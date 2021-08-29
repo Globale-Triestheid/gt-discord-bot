@@ -130,6 +130,10 @@ dmypy.json
 
 # images
 profile.jpg
+deepfry.jpg
+deep_img.png
+shot.png
+
 
 # pycharm
 .idea/
