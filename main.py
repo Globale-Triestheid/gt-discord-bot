@@ -31,4 +31,28 @@ async def wth(ctx, user: discord.Member = None):
 
     await ctx.send(file=discord.File("profile.jpg"))
 
+
+@client.command()
+async def keemstar(ctx, user: discord.Member = None):
+    if not user:
+        user = ctx.author
+
+    print(user)
+
+    keemstar_image = Image.open("keemstar.jpg")
+
+    asset = user.avatar_url_as(size=512)
+
+    data = BytesIO(await asset.read())
+    pfp = Image.open(data)
+    keemstar_image = keemstar_image.resize((128, 128))
+    keemstar_image = keemstar_image.convert("RGB")
+    pfp.paste(keemstar_image, (0, 0))
+
+    pfp.save("profile.jpg")
+
+    await ctx.send(file=discord.File("profile.jpg"))
+
+
+
 client.run(os.getenv("TOKEN"))
