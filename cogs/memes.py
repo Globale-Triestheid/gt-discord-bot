@@ -100,6 +100,7 @@ class Memes(commands.Cog):
 
         img.paste(wasted_image, (0, int(height / 2)))
 
+        img = img.convert("RGB")
         img.save("images/profile_wasted.jpg")
 
         await ctx.send(file=discord.File("images/profile_wasted.jpg"))
@@ -161,6 +162,8 @@ class Memes(commands.Cog):
         width2, height2 = brazzers_image.size
         # logo wordt geplakt op hoogte van zichzelf zodat de onderkant precies de grond raakt (dus totale hoogte min zn eigen hoogte)
         img.paste(brazzers_image, (0, height - height2))
+
+        img = img.convert("RGB")
         img.save("images/brazzers_profile.jpg")
 
         await ctx.send(file=discord.File("images/brazzers_profile.jpg"))
