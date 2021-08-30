@@ -128,7 +128,7 @@ async def wasted(ctx, user: discord.Member = None):
 
     print(user)
 
-    wasted_image = Image.open("wasted.jpg")
+    wasted_image = Image.open("images/wasted.jpg")
 
     asset = user.avatar_url_as(size=512)
     data = BytesIO(await asset.read())
@@ -139,21 +139,19 @@ async def wasted(ctx, user: discord.Member = None):
     factor = 0.5  # darkens the image
     pfp = enhancer.enhance(factor)
 
-    wasted_image = Image.open("wasted.jpg")
-
     pfp.paste(wasted_image, (0, 200))
 
 
-    pfp.save("profile_wasted.jpg")
+    pfp.save("images/profile_wasted.jpg")
 
-    await ctx.send(file=discord.File("profile_wasted.jpg"))
+    await ctx.send(file=discord.File("images/profile_wasted.jpg"))
 
 @client.command()
 async def whodidthis(ctx, user: discord.Member = None):
     """
     returns an image with the who did this? meme
     ctx: original message
-    user: (optional taggerd user
+    user: (optional) tagged user
     """
 
     if not user:
