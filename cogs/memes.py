@@ -129,6 +129,43 @@ class Memes(commands.Cog):
 
         await ctx.send(file=discord.File("images/profile_whodidthis.jpg"))
 
+    @commands.command()
+    async def brazzers(self, ctx, user: discord.Member = None):
+        """
+        Adds brazzers logo to the bottom right corner.
+        :param ctx:
+        :param user:
+        :return:
+        """
+        await ctx.message.add_reaction(u"\U0001F595")
+
+        img = await get_image(ctx, user)
+
+        if isinstance(img, str):
+            await ctx.send(img)
+            return
+
+        brazzers_image = Image.open("images/brazzers.png")
+
+        # dimenties van beide plaatjes krijgen
+        width, height = img.size
+        width2, height2 = brazzers_image.size
+
+        # nieuwe breedte van het plaatje moet 2,5 keer zo klein zijn als het originele plaatje,
+        # dus hier bereken je hoeveel pixels het brazzers logo wordt in de breedte
+        new_width = width / 2.5
+        # de factor is keer hoeveel je de breedte moet doen om het plaatje zoveel pixels breed te maken
+        factor = new_width / width2
+        # resize, breedte en hoogte worden bepaald door de originele grootte keer de factor te doen
+        brazzers_image = brazzers_image.resize((int(width2 * factor), int(height2 * factor)))
+        width2, height2 = brazzers_image.size
+        # logo wordt geplakt op hoogte van zichzelf zodat de onderkant precies de grond raakt (dus totale hoogte min zn eigen hoogte)
+        img.paste(brazzers_image, (0, height - height2))
+        img.save("images/brazzers_profile.jpg")
+
+        await ctx.send(file=discord.File("images/brazzers_profile.jpg"))
+
+
 
 def setup(client):
     client.add_cog(Memes(client))
