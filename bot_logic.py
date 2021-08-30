@@ -70,7 +70,6 @@ async def get_newest_image(ctx):
     newest_time = max(image.created_at for image in images)
 
     for image in images:
-        print(image.created_at)
         if image.created_at == newest_time:
             return image
 
