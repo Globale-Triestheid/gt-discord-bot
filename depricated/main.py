@@ -23,8 +23,6 @@ async def wth(ctx, user: discord.Member = None):
     if not user:
         user = ctx.author
 
-    print(user)
-
     wth_image = Image.open("images/wth.jpg")
 
     asset = user.avatar_url_as(size=128)
@@ -141,10 +139,10 @@ async def wasted(ctx, user: discord.Member = None):
 
     pfp.paste(wasted_image, (0, 200))
 
-
     pfp.save("images/profile_wasted.jpg")
 
     await ctx.send(file=discord.File("images/profile_wasted.jpg"))
+
 
 @client.command()
 async def whodidthis(ctx, user: discord.Member = None):
@@ -169,9 +167,9 @@ async def whodidthis(ctx, user: discord.Member = None):
 
     whodidthis_image.paste(pfp, (103, 134))
 
-    pfp.save("profile_whodidthis.jpg")
+    pfp.save("images/profile_whodidthis.jpg")
 
-    await ctx.send(file=discord.File("profile_whodidthis.jpg"))
+    await ctx.send(file=discord.File("images/profile_whodidthis.jpg"))
 
 
 client.run(os.getenv("TOKEN"))
