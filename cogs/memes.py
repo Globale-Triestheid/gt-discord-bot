@@ -129,6 +129,28 @@ class Memes(commands.Cog):
 
         await ctx.send(file=discord.File("images/profile_whodidthis.jpg"))
 
+    @commands.command()
+    async def brazzers(self, ctx, user: discord.Member = None):
+        """
+        Adds brazzers logo to the bottom right corner.
+        :param ctx:
+        :param user:
+        :return:
+        """
+        await ctx.message.add_reaction(u"\U0001F595")
+
+        img = await get_image(ctx, user)
+
+        if isinstance(img,str):
+            await ctx.send(img)
+            return
+
+        brazzers_image = Image.open("images/brazzers.png")
+
+        img = img.resize(1000, 1000)
+
+        brazzers_image.paste(img)
+
 
 def setup(client):
     client.add_cog(Memes(client))
