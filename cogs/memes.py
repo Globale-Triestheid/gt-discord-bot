@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from PIL import Image, ImageEnhance
 from io import BytesIO
+from bot_logic import get_image
 
 
 class Memes(commands.Cog):
@@ -21,22 +22,21 @@ class Memes(commands.Cog):
             Returns the "worse than Hitler" image with somebodies profile picture inside.
             ctx: original message
             user: (optional) tagged user
-            """
+        """
+        await ctx.message.add_reaction(u"\U0001F595")
 
-        # if no user parameter is specified, the OP gets used as user.
-        if not user:
-            user = ctx.author
+        img = await get_image(ctx, user)
+
+        if isinstance(img, str):
+            await ctx.send(img)
+            return
 
         wth_image = Image.open("images/wth.jpg")
 
-        asset = user.avatar_url_as(size=128)
-
-        data = BytesIO(await asset.read())
-        pfp = Image.open(data)
-        pfp = pfp.resize((130, 130))
+        img = img.resize((130, 130))
 
         # pastes users pfp inside the wth image
-        wth_image.paste(pfp, (41, 41))
+        wth_image.paste(img, (41, 41))
         wth_image = wth_image.convert("RGB")
         wth_image.save("images/profile_wth.jpg")
 
@@ -48,23 +48,24 @@ class Memes(commands.Cog):
             Returns an image with keemstar in the top left.
             ctx: original message
             user: (optional) tagged user
-            """
+        """
+        await ctx.message.add_reaction(u"\U0001F595")
 
-        if not user:
-            user = ctx.author
+        img = await get_image(ctx, user)
+
+        if isinstance(img, str):
+            await ctx.send(img)
+            return
 
         keemstar_image = Image.open("images/keemstar.jpg")
 
-        asset = user.avatar_url_as(size=512)
-
-        data = BytesIO(await asset.read())
-        pfp = Image.open(data)
         keemstar_image = keemstar_image.resize((128, 128))
         keemstar_image = keemstar_image.convert("RGB")
-        pfp = pfp.resize((512, 512))
-        pfp = pfp.convert("RGB")
-        pfp.paste(keemstar_image, (0, 0))
-        pfp.save("images/profile_keemstar.jpg")
+
+        img = img.resize((512, 512))
+        img = img.convert("RGB")
+        img.paste(keemstar_image, (0, 0))
+        img.save("images/profile_keemstar.jpg")
 
         await ctx.send(file=discord.File("images/profile_keemstar.jpg"))
 
@@ -75,24 +76,31 @@ class Memes(commands.Cog):
         ctx: original message
         user: (optional) tagged user
         """
+        await ctx.message.add_reaction(u"\U0001F595")
 
-        if not user:
-            user = ctx.author
+        img = await get_image(ctx, user)
+
+        if isinstance(img, str):
+            await ctx.send(img)
+            return
 
         wasted_image = Image.open("images/wasted.jpg")
 
-        asset = user.avatar_url_as(size=512)
-        data = BytesIO(await asset.read())
-        pfp = Image.open(data)
+        width, height = img.size
+        width2, height2 = wasted_image.size
 
-        enhancer = ImageEnhance.Brightness(pfp)
+        change_factor = width / width2
+
+        wasted_image = wasted_image.resize((width, int(height2 * change_factor)))
+
+        enhancer = ImageEnhance.Brightness(img)
 
         factor = 0.5  # darkens the image
-        pfp = enhancer.enhance(factor)
+        img = enhancer.enhance(factor)
 
-        pfp.paste(wasted_image, (0, 200))
+        img.paste(wasted_image, (0, int(height / 2)))
 
-        pfp.save("images/profile_wasted.jpg")
+        img.save("images/profile_wasted.jpg")
 
         await ctx.send(file=discord.File("images/profile_wasted.jpg"))
 
@@ -103,21 +111,21 @@ class Memes(commands.Cog):
         ctx: original message
         user: (optional) tagged user
         """
+        await ctx.message.add_reaction(u"\U0001F595")
 
-        if not user:
-            user = ctx.author
+        img = await get_image(ctx, user)
+
+        if isinstance(img, str):
+            await ctx.send(img)
+            return
 
         whodidthis_image = Image.open("images/whodidthis.jpg")
 
-        asset = user.avatar_url_as(size=512)
-        data = BytesIO(await asset.read())
-        pfp = Image.open(data)
+        img = img.resize((662, 662))
 
-        pfp = pfp.resize((662, 662))
+        whodidthis_image.paste(img, (103, 134))
 
-        whodidthis_image.paste(pfp, (103, 134))
-
-        pfp.save("images/profile_whodidthis.jpg")
+        whodidthis_image.save("images/profile_whodidthis.jpg")
 
         await ctx.send(file=discord.File("images/profile_whodidthis.jpg"))
 

@@ -135,7 +135,11 @@ deep_img.png
 shot.png
 profile_keemstar.jpg
 profile_wth.jpg
+profile_wasted.jpg
+profile_whodidthis.jpg
 
 # pycharm
 .idea/
 *.py~
+images/profile_wasted.jpg
+images/profile_whodidthis.jpg

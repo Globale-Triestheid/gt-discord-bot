@@ -31,16 +31,6 @@ class Manipulate(commands.Cog):
             await ctx.send(img)
             return
 
-        # if user:
-        #     img = await get_image_from_user(user, 512)
-        # elif await check_reference(ctx):
-        #     ref_message = await ctx.fetch_message(ctx.message.reference.message_id)
-        #     url = ref_message.attachments[0].url
-        #     img = await get_image_from_url(url)
-        # else:
-        #     await ctx.send("Invalid use of command")
-        #     return
-
         img = img.convert("RGB")
         img.save("images/deepfry.jpg")
         path = os.path.dirname(os.path.realpath('images/deepfry.jpg')) + "\deepfry.jpg"
