@@ -169,6 +169,5 @@ class Memes(commands.Cog):
         await ctx.send(file=discord.File("images/brazzers_profile.jpg"))
 
 
-
 def setup(client):
     client.add_cog(Memes(client))

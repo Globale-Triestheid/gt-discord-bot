@@ -34,7 +34,7 @@ class Manipulate(commands.Cog):
         img = img.convert("RGB")
         img.save("images/deepfry.jpg")
         path = os.path.dirname(os.path.realpath('images/deepfry.jpg')) + "\deepfry.jpg"
-        Fryer().deepFry(image_url=path)
+        Fryer().deepfry(image_url=path)
         await ctx.send(file=discord.File("images/deep_img.png"))
 
 
